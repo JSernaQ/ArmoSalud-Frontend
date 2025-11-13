@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Volver</ion-button>
+    </ion-buttons>
+
+    <ion-title>{{productData.name}}</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form>
+
+    <ion-item>
+      <ion-input label="Código" labelPlacement="stacked" value="{{productData.code}}">
+        <ion-icon slot="end" name="camera" aria-hidden="true"></ion-icon>
+      </ion-input>
+      
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Nombre" labelPlacement="stacked" value="{{productData.name}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Stock" labelPlacement="stacked" value="{{productData.stock}}" [disabled]="true"></ion-input>
+    </ion-item>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Presentaciones</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <table class="tabla-presentaciones" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th style="border-bottom: 1px solid #ccc; padding: 8px;">Tipo</th>
+              <th style="border-bottom: 1px solid #ccc; padding: 8px;">Equivalencia</th>
+              <th style="border-bottom: 1px solid #ccc; padding: 8px;">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let presentation of productData.presentations">
+              <td style="padding: 8px;">{{ presentation.type }}</td>
+              <td style="padding: 8px;">{{ presentation.equivalence }}</td>
+              <td style="padding: 8px;">{{ presentation.price | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <ion-button  expand="block" fill="clear" shape="round">
+          Añadir
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button class="ion-margin-top" expand="block" shape="round" (click)="save()">
+      Guardar
+    </ion-button>
+  </form>
+</ion-content>

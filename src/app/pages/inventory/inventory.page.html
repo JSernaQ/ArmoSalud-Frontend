@@ -5,4 +5,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="tab-buttons">
+    <button (click)="openModal()" class="create-button">
+      <strong>Añadir producto</strong>
+    </button>
+  </div>
+  <app-products-list></app-products-list>
+  
 </ion-content>

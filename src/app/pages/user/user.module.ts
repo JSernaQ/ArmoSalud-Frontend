@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { UserPageRoutingModule } from './user-routing.module';
 
 import { UserPage } from './user.page';
+import { LogoutButtonComponent } from 'src/app/auth/components/logout-button/logout-button.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { UserPage } from './user.page';
     IonicModule,
     UserPageRoutingModule
   ],
-  declarations: [UserPage]
+  declarations: [UserPage, LogoutButtonComponent]
 })
 export class UserPageModule {}

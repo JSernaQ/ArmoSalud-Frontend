@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inventory',
@@ -8,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryPage implements OnInit {
 
-  constructor() { }
+  constructor( private ModalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
+  openModal() {
+    console.log('hola');
+    
+  }
 }

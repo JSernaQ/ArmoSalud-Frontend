@@ -1,0 +1,22 @@
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+<ion-card *ngFor="let product of productList" (click)="seeDetails(product)">
+  <ion-card-header>
+    <ion-card-subtitle> Stock: {{ product.stock }} und </ion-card-subtitle>
+    <ion-card-subtitle> Codigo: {{ product.code }} </ion-card-subtitle>
+    <ion-card-title style="padding-bottom: 10px;"> {{ product.name }} </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    Presentaciones:
+    <ul>
+      <li *ngFor="let presentation of product.presentations">
+        {{ presentation.type }} - {{ presentation.equivalence }} und, ${{ presentation.price }}
+      </li>
+    </ul>
+  </ion-card-content>
+</ion-card>
+
+<ion-toast [isOpen]="isToastOpen" message={{msg}} [duration]="2000" (didDismiss)="setOpen(false)" translucent="true"
+  color="{{msgColor}}"></ion-toast>
