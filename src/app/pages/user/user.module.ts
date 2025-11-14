@@ -8,13 +8,15 @@ import { UserPageRoutingModule } from './user-routing.module';
 
 import { UserPage } from './user.page';
 import { LogoutButtonComponent } from 'src/app/auth/components/logout-button/logout-button.component';
+import { SharedModule } from 'src/app/components/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    UserPageRoutingModule
+    UserPageRoutingModule,
+    SharedModule
   ],
   declarations: [UserPage, LogoutButtonComponent]
 })
