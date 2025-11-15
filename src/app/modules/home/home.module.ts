@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { MainCardsComponent } from './components/main-cards/main-cards.component';
 import { RecentActivityComponent } from './components/recent-activity/recent-activity.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 
@@ -11,7 +12,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
   declarations: [
     MainCardsComponent,
     RecentActivityComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
   exports: [
     MainCardsComponent,
     RecentActivityComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NotificationComponent
   ]
 })
 export class HomeModule { }
