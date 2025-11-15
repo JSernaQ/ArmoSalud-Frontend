@@ -1,2 +1,49 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/fonts/Quicksand/Quicksand-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/fonts/Quicksand/Quicksand-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/fonts/Quicksand/Quicksand-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/fonts/Quicksand/Quicksand-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/fonts/Quicksand/Quicksand-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../assets/fonts/Geist/Geist-Bold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../assets/fonts/Geist/Geist-ExtraBold.ttf') format('truetype');
+  font-weight: 700;
+} 
+
+:root {
+  --ion-font-family: 'Quicksand', sans-serif;
+}
