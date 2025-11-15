@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-recent-activity',
+  selector: 'app-recent-activity-home-component',
   templateUrl: './recent-activity.component.html',
   styleUrls: ['./recent-activity.component.scss'],
   standalone: false

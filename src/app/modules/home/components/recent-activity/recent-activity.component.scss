@@ -1,0 +1,39 @@
+.main-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    min-width: max-content;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-activity{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    padding: 10px 20px;
+}
+
+.first-info .title-card {
+    font-weight: 600;
+}
+
+.second-info {
+    display: flex;
+    align-items: center;
+}
+
+.second-info p {
+    font-weight: 600;
+}
