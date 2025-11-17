@@ -1,0 +1,41 @@
+nav {
+    height: 120px;
+    padding-top: 30px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-content{ 
+    flex: 1;
+}
+
+.button-content{
+    flex: 5;
+    display: flex;
+    flex: row;
+    justify-content: end;
+    gap: 10px;
+}
+.button-content button {
+    height: 50PX;
+    width: 50PX;
+    border-radius: 15px;
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-content button span {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+
+    translate: 38px -38px;
+    
+    background-color: red;
+}

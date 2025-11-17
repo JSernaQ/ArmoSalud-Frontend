@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ProductIndividualCardComponent } from './components/product-individual-card/product-individual-card.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { IonicModule } from '@ionic/angular';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
 @NgModule({
   declarations: [
     ProductIndividualCardComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { IonicModule } from '@ionic/angular';
   ],
   exports: [
     ProductIndividualCardComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    NavbarComponent
   ]
 })
 export class InventoryModule { }
