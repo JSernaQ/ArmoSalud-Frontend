@@ -18,7 +18,7 @@
     height: 100px;
     border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    padding-left: 10px;
+    padding-left: 15px;
 }
 
 .icon-card {
@@ -35,18 +35,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    line-height: 0px;
+    justify-content: center;
+    height: 100%;
+    line-height: 0;
     flex: 2;
 }
 
 .content-card p:nth-child(1) {
-    font-weight: 600;
-    margin: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 20px;
 }
 
 .content-card p:nth-child(2) {
-    font-size: 24px;
-    margin: 10px;
-    padding-bottom: 12px;
-    font-weight: 700;
+    font-weight: 600;
+    margin-top: 0px;
+    color: rgb(99, 99, 99);
 }
