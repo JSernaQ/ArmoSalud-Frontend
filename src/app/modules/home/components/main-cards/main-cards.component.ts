@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-main-cards',
+  selector: 'app-main-cards-home',
   templateUrl: './main-cards.component.html',
   styleUrls: ['./main-cards.component.scss'],
   standalone: false
