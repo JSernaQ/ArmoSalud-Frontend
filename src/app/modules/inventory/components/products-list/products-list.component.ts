@@ -40,17 +40,22 @@ export class ProductsListComponent implements OnInit {
         this.router.navigate(['/login'])
       }
       const response = await firstValueFrom(this.api.getAllProducts(token));
-
+      
       this.productList = response.products;
       console.log(this.productList[0]);
-
-
+      
+      
     } catch (error: any) {
-
+      
       console.log('Error: ', error?.error.msg);
       this.msg = error?.error.msg;
       this.msgColor = 'danger';
       this.setOpen(true);
+      
+      if (error?.error.msg == 'Token inválido o expirado') {
+        await Preferences.clear();
+        this.router.navigate(['/login'])
+      }
 
     }
 
