@@ -5,6 +5,7 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { IonicModule } from '@ionic/angular';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { InfoCardsComponent } from './components/info-cards/info-cards.component';
 
 
 
@@ -13,7 +14,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ProductIndividualCardComponent,
     ProductsListComponent,
     NavbarComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    InfoCardsComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ProductIndividualCardComponent,
     ProductsListComponent,
     NavbarComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    InfoCardsComponent
   ]
 })
 export class InventoryModule { }
