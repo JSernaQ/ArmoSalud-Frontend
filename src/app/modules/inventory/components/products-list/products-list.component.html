@@ -2,21 +2,28 @@
   <ion-refresher-content></ion-refresher-content>
 </ion-refresher>
 
-<ion-card *ngFor="let product of productList" (click)="seeDetails(product)">
-  <ion-card-header>
-    <ion-card-subtitle> Stock: {{ product.stock }} und </ion-card-subtitle>
-    <ion-card-subtitle> Codigo: {{ product.code }} </ion-card-subtitle>
-    <ion-card-title style="padding-bottom: 10px;"> {{ product.name }} </ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    Presentaciones:
-    <ul>
-      <li *ngFor="let presentation of product.presentations">
-        {{ presentation.type }} - {{ presentation.equivalence }} und, ${{ presentation.price }}
-      </li>
-    </ul>
-  </ion-card-content>
-</ion-card>
+
+<div class="card" *ngFor="let product of productList" (click)="seeDetails(product)">
+  <div class="icon">
+    <img src="./assets/icon/item.svg" alt="Item Icon">
+  </div>
+  <div class="card-content">
+    <p class="name">{{product.name}}</p>
+    <!-- <p class="name">Buscapina fem Capsula blanda {{product.name}} {{product.name}}</p> -->
+    <p class="stock"><span>Stock:</span> {{product.stock}}</p>
+    <div class="code-container">
+      <img src="./assets/icon/barcode.svg" alt="barcode icon" style="width:16px; height:16px;">
+      <p class="code">{{product.code}}</p>
+    </div>
+  </div>
+
+  <!-- <ul>
+    <li *ngFor="let presentation of product.presentations">
+      {{ presentation.type }} - {{ presentation.equivalence }} und, ${{ presentation.price }}
+    </li>
+  </ul> -->
+
+</div>
 
 <ion-toast [isOpen]="isToastOpen" message={{msg}} [duration]="2000" (didDismiss)="setOpen(false)" translucent="true"
   color="{{msgColor}}"></ion-toast>
