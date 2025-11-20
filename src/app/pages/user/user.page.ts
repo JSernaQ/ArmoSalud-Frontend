@@ -13,4 +13,8 @@ export class UserPage implements OnInit {
   ngOnInit() {
   }
 
+  hola() {
+    console.log('Hola');
+  }
+
 }
