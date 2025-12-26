@@ -12,7 +12,7 @@ export class ApiService {
   constructor( private http: HttpClient, private router: Router ) { }
 
   getAllProducts(token: any): Observable<any> {
-    return this.http.get(`${environment.api_url}/product/`, {headers: {authorization: `${token}`}}) 
+    return this.http.get(`${environment.api_url}/product/`, {headers: {authorization: `${token}`}})
   };
 
 }

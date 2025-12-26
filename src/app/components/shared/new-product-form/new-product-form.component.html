@@ -1,0 +1,122 @@
+<header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Volver</ion-button>
+    </ion-buttons>
+    <h3>{{ title }}</h3>
+    <ion-buttons slot="end">
+      <ion-button style="color: #0054e9" (click)="confirm()" [strong]="true">{{ nextBtn }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</header>
+
+<ion-content>
+  <form [formGroup]="formProduct">
+
+    <div class="inputs">
+
+      <label>Código <span class="error-notify"
+          *ngIf="formProduct.get('code')?.invalid && formProduct.get('code')?.touched">- Campo
+          Obligatorio</span></label>
+      <div class="input-icon">
+        <input type="text" placeholder="Codigo del producto" id="code" formControlName="code">
+        <img src="./assets/icon/barcode.svg" alt="codebar" height="35px">
+      </div>
+
+      <label>Nombre
+        <span class="error-notify" *ngIf="formProduct.get('name')?.invalid && formProduct.get('name')?.touched">
+          <ng-container *ngIf="formProduct.get('name')?.errors?.['required']">- Campo obligatorio.</ng-container>
+          <ng-container *ngIf="formProduct.get('name')?.errors?.['minlength']">- Mínimo 3 caracteres.</ng-container>
+          <ng-container *ngIf="formProduct.get('name')?.errors?.['maxlength']">- Máximo 50 caracteres.</ng-container>
+        </span>
+      </label>
+      <div class="input-icon">
+        <input type="text" placeholder="Nombre del producto" id="name" formControlName="name">
+      </div>
+
+      <label>Descripción
+        <span class="error-notify" *ngIf="formProduct.get('description')?.invalid && formProduct.get('description')?.touched">
+          <ng-container *ngIf="formProduct.get('description')?.errors?.['maxlength']">- Máximo 200 caracteres.</ng-container>
+        </span>
+      </label>
+      <div class="input-icon">
+        <input type="text" placeholder="Description del producto" id="description" formControlName="description">
+      </div>
+
+      <label>Dueño
+        <span class="error-notify" *ngIf="formProduct.get('owner_id')?.invalid && formProduct.get('owner_id')?.touched">
+          <ng-container *ngIf="formProduct.get('owner_id')?.errors?.['required']">- Campo obligatorio.</ng-container>
+        </span>
+      </label>
+      <ion-item>
+        <ion-select multiple="false" formControlName="owner_id" placeholder="Dueño del producto">
+          <ion-select-option *ngFor="let owner of owners" [value]="owner._id">{{owner.name}} -
+            {{owner.rol}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+
+      <label>Stock
+        <span class="error-notify" *ngIf="formProduct.get('stock')?.invalid && formProduct.get('stock')?.touched">
+          <ng-container *ngIf="formProduct.get('stock')?.errors?.['required']">- Campo obligatorio.</ng-container>
+          <ng-container *ngIf="formProduct.get('stock')?.errors?.['min']">- No puede ser negativo.</ng-container>
+        </span>
+      </label>
+      <div class="input-icon">
+        <input type="text" placeholder="Stock disponible" id="stock" formControlName="stock">
+      </div>
+
+      <label>Stock Limite
+        <span class="error-notify" *ngIf="formProduct.get('min_stock')?.invalid && formProduct.get('min_stock')?.touched">
+          <ng-container *ngIf="formProduct.get('min_stock')?.errors?.['required']">- Campo obligatorio.</ng-container>
+          <ng-container *ngIf="formProduct.get('min_stock')?.errors?.['min']">- No puede ser negativo.</ng-container>
+        </span>
+      </label>
+      <div class="input-icon">
+        <input type="text" placeholder="Stock limite de alerta" id="min_stock" formControlName="min_stock">
+      </div>
+
+
+      <label>Presentaciones</label>
+
+      <div class="presentations">
+        <div class="unit">
+          <ion-checkbox labelPlacement="end" [(ngModel)]="presentationState.uni.enable" (ionChange)="onToggle('uni')"
+            [ngModelOptions]="{standalone: true}">Unidad</ion-checkbox>
+          <input type="number" placeholder="Equivalencia" id="uni_equiv" [(ngModel)]="presentationState.uni.equivalence"
+            [disabled]="!presentationState.uni.enable" [ngModelOptions]="{standalone: true}">
+          <input type="number" placeholder="Precio" id="uni_price" [(ngModel)]="presentationState.uni.price"
+            [disabled]="!presentationState.uni.enable" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="unit">
+          <ion-checkbox labelPlacement="end" [(ngModel)]="presentationState.tab.enable" (ionChange)="onToggle('tab')"
+            [ngModelOptions]="{standalone: true}">Tableta</ion-checkbox>
+          <input type="number" placeholder="Equivalencia" id="tab_equiv" [(ngModel)]="presentationState.tab.equivalence"
+            [disabled]="!presentationState.tab.enable" [ngModelOptions]="{standalone: true}">
+          <input type="number" placeholder="Precio" id="tab_price" [(ngModel)]="presentationState.tab.price"
+            [disabled]="!presentationState.tab.enable" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="unit">
+          <ion-checkbox labelPlacement="end" [(ngModel)]="presentationState.caj.enable" (ionChange)="onToggle('caj')"
+            [ngModelOptions]="{standalone: true}">Caja</ion-checkbox>
+          <input type="number" placeholder="Equivalencia" id="caj_equiv" [(ngModel)]="presentationState.caj.equivalence"
+            [disabled]="!presentationState.caj.enable" [ngModelOptions]="{standalone: true}">
+          <input type="number" placeholder="Precio" id="caj_price" [(ngModel)]="presentationState.caj.price"
+            [disabled]="!presentationState.caj.enable" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    [message]="msgToast"
+    color="danger"
+    [duration]="3000"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
+
+
+</ion-content>

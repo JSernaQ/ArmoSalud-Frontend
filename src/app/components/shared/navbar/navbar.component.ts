@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-navbar-component',
@@ -8,8 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent  implements OnInit {
 
+  user: any = '';
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUser();
+  }
+
+  async getUser() {
+    const { value } = await Preferences.get({ key: 'user' })
+    this.user = value ? JSON.parse(value) : false;
+    console.log(this.user);
+    
+  }
 
 }

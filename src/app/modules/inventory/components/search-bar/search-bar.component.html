@@ -1,13 +1,13 @@
 <div class="search-bar">
 
   <div class="search-input">
-    <input type="text" placeholder="Buscar producto..." name="search-bar" id="search-bar">
+    <input type="text" placeholder="Buscar producto..." name="search-bar" id="search-bar" (input)="onSearchChange($event)">
   </div>
 
   <div class="search-filter">
     
     <button>
-      <img src="./assets/icon/filter.svg" alt="filter icon" height="25px">
+      <img src="./assets/icon/filter.svg" alt="filter-icon" height="25px">
     </button>
 
   </div>

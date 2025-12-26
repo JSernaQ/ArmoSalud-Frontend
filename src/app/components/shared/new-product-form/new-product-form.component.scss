@@ -1,0 +1,94 @@
+header {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    padding-bottom: 5px;
+    box-shadow: 0 5px 8px 2px rgba(0,0,0,0.1);
+}
+
+ion-toolbar {
+    border-radius: 0 0 15px 15px;
+}
+
+h3 {
+    margin-top: 7px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 0px;
+}
+
+label{
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+input{
+    background-color: transparent;
+    margin-top: 10px;
+    height: 45px;
+    border-radius: 10px;
+    border: solid transparent;
+    box-shadow: 0 2px 5px 2px rgba(0,0,0,0.15);
+    padding-left: 10px;
+}
+
+img {
+    margin-top: 10px;
+}
+
+.input-icon {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.input-icon input{
+    flex: 6;
+}
+
+.input-icon img{
+    flex: 1;
+}
+    
+.presentations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.presentations .unit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.presentations ion-checkbox {
+    flex: 2;
+}
+
+.presentations input {
+    flex: 1;
+    margin-top: 0;
+    max-width: 120px;
+}
+
+.error-notify {
+    color: red;
+    font-size: 14px;
+}

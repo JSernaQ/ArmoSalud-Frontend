@@ -43,7 +43,7 @@
 .card-content .stock { // Product Stock
     height: 20px;
     font-size: 14px;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
 .card-content .stock span {
@@ -58,4 +58,16 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.stock-text {
+    display: flex;
+}
+
+.stock-text p:nth-child(1) {
+    flex: 3;
+}
+
+.stock-text p:nth-child(2) {
+    flex: 4;
 }

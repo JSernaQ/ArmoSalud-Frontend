@@ -7,21 +7,19 @@
   <div class="icon">
     <img src="./assets/icon/item.svg" alt="Item Icon">
   </div>
+
   <div class="card-content">
     <p class="name">{{product.name}}</p>
-    <!-- <p class="name">Buscapina fem Capsula blanda {{product.name}} {{product.name}}</p> -->
-    <p class="stock"><span>Stock:</span> {{product.stock}}</p>
+    <div class="stock-text">
+      <p class="stock"><span>Stock:</span> {{product.stock}}</p>
+      <p class="stock"><span>Stock Limite:</span> {{product.minStock}}</p>
+    </div>
+
     <div class="code-container">
       <img src="./assets/icon/barcode.svg" alt="barcode icon" style="width:16px; height:16px;">
       <p class="code">{{product.code}}</p>
     </div>
   </div>
-
-  <!-- <ul>
-    <li *ngFor="let presentation of product.presentations">
-      {{ presentation.type }} - {{ presentation.equivalence }} und, ${{ presentation.price }}
-    </li>
-  </ul> -->
 
 </div>
 

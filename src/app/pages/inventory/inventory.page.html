@@ -1,11 +1,11 @@
 <ion-content [fullscreen]="true">
 
-  <app-navbar-inventory></app-navbar-inventory>
+  <app-navbar-inventory (productCreated)="reloadProducts()"></app-navbar-inventory>
 
-  <app-search-bar-inventory></app-search-bar-inventory>
-  
-  <app-info-cards-inventory></app-info-cards-inventory>
+  <app-search-bar-inventory (searchTerm)="onSearch($event)"></app-search-bar-inventory>
 
-  <app-products-list></app-products-list>
+  <app-info-cards-inventory [productList]="productList" #infoCards></app-info-cards-inventory>
+
+  <app-products-list #productsList (listUpdated)="reloadInfoCards($event)"></app-products-list>
   
-</ion-content>
+</ion-content> 

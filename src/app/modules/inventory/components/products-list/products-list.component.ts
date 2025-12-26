@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
 import { ModalController, RefresherCustomEvent } from '@ionic/angular';
-import { ProductIndividualCardComponent } from '../product-individual-card/product-individual-card.component';
+import { NewProductFormComponent } from 'src/app/components/shared/new-product-form/new-product-form.component';
 
 @Component({
   selector: 'app-products-list',
@@ -14,7 +14,10 @@ import { ProductIndividualCardComponent } from '../product-individual-card/produ
 })
 export class ProductsListComponent implements OnInit {
 
+  @Output() listUpdated = new EventEmitter<any[]>();
+
   productList: any = [];
+  originalProductList: any = [];
   isToastOpen = false;
   msg: string = ''
   msgColor: string = 'danger'
@@ -22,9 +25,7 @@ export class ProductsListComponent implements OnInit {
   constructor(private api: ApiService, private router: Router, private modalCtrl: ModalController) { }
 
   ngOnInit() {
-
     this.getAllProducts()
-
   }
 
   async getToken() {
@@ -36,47 +37,67 @@ export class ProductsListComponent implements OnInit {
 
     try {
       const token = await this.getToken();
-      if (!token) {
-        this.router.navigate(['/login'])
-      }
+      !token ? window.location.href = '/login' : NaN;
+
       const response = await firstValueFrom(this.api.getAllProducts(token));
-      
+
       this.productList = response.products;
-      console.log(this.productList[0]);
-      
-      
+      this.originalProductList = response.products;
+
+      this.listUpdated.emit(this.productList);
+
     } catch (error: any) {
-      
+
       console.log('Error: ', error?.error.msg);
       this.msg = error?.error.msg;
       this.msgColor = 'danger';
       this.setOpen(true);
-      
+
       if (error?.error.msg == 'Token inválido o expirado') {
         await Preferences.clear();
         this.router.navigate(['/login'])
-      }
+      };
+    };
+  };
 
+  filterProducts(term: string) {
+    
+    const value = term.trim().toLowerCase();
+
+    if (term.length === 0 || !value) {
+      this.productList = this.originalProductList;
+      this.listUpdated.emit(this.productList);
+      return;
     }
 
+    this.productList = this.originalProductList.filter((product: any) => 
+      product.name.toLowerCase().includes(value) ||
+      product.code.toLowerCase().includes(value)
+    );
+  
+    this.listUpdated.emit(this.productList);
   }
+  
 
   async seeDetails(product: any) {
 
     const model = await this.modalCtrl.create({
-      component: ProductIndividualCardComponent,
+      component: NewProductFormComponent,
       componentProps: {
+        title: "EDITAR PRODUCTO",
+        nextBtn: "Guardar",
         productData: product
       }
     });
     model.present();
 
-    const {data, role} = await model.onWillDismiss();
+    const { data, role } = await model.onWillDismiss();
 
     if (role === 'confirm') {
       this.msgColor = 'success';
-      this.msg = 'Producto actualizado'
+      this.msg = 'Producto actualizado Correctamente';
       this.setOpen(true);
+      this.getAllProducts();
     }
 
   }

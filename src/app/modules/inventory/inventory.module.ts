@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { InfoCardsComponent } from './components/info-cards/info-cards.component';
+import { SharedModule } from 'src/app/components/shared/shared.module';
 
 
 
@@ -19,7 +20,8 @@ import { InfoCardsComponent } from './components/info-cards/info-cards.component
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    SharedModule,
   ],
   exports: [
     ProductIndividualCardComponent,

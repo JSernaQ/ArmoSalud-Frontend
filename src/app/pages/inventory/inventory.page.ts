@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -9,13 +9,28 @@ import { ModalController } from '@ionic/angular';
 })
 export class InventoryPage implements OnInit {
 
-  constructor( private ModalCtrl: ModalController) { }
+  @ViewChild('productsList') productsList: any;
+  @ViewChild('infoCards') infoCards: any;
+  @ViewChild('searchBar') searchBar: any;
+
+  productList: any[] = [];
+
+  constructor() {}
 
   ngOnInit() {
   }
 
-  openModal() {
-    console.log('hola');
-    
+  reloadProducts() {
+    this.productsList.getAllProducts();
+    this.infoCards.getAllProducts();
   }
+
+  onSearch(term: string) {
+    this.productsList.filterProducts(term);
+  }
+
+  reloadInfoCards(list: any) {
+    this.productList = list;
+  }
+
 }

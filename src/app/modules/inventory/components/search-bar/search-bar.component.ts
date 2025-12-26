@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar-inventory',
@@ -8,8 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBarComponent  implements OnInit {
 
+  @Output() searchTerm = new EventEmitter<string>();
+  private searchSubject = new Subject<string>();
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe(value => {
+        this.searchTerm.emit(value);
+      });
+  };
+
+  onSearchChange(event: any) {
+    const value = event.target.value || '';
+    this.searchSubject.next(value);
+  }
 
 }

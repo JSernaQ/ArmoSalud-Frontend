@@ -14,6 +14,6 @@ export class LogoutButtonComponent {
 
   async logout() {
     await Preferences.clear();
-    this.router.navigate(['/login']);
+    window.location.href = '/login';
   }
 }
