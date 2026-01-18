@@ -1,0 +1,135 @@
+<ion-content [fullscreen]="true">
+    <div class="title" *ngIf="itemList.length > 0">
+        <button (click)="addProduct()" class="second-btn">Añadir Producto</button>
+        <ion-icon class="clean" (click)="removeAllItems()" name="trash-bin-outline" color="danger" size="large"></ion-icon>
+    </div>
+
+    <div class="alert" *ngIf="itemList.length === 0">
+        <p>No hay productos en la lista</p>
+        <button class="second-btn" (click)="addProduct()">Agregar Producto</button>
+    </div>
+
+    <div class="product-list-container">
+
+        <div class="card" *ngFor="let item of itemList">
+
+            <div class="card-info">
+
+                <div class="card-title">
+                    <h4>{{item.productName}}</h4>
+                </div>
+                <div class="card-price">
+                    <div>
+                        <p>Presentación: {{item.presentationType}}</p>
+                    </div>
+                    <div>
+                        <h5><strong>$ <input type="number" class="price-input" [(ngModel)]="item.unitPrice" (input)="updateItem(item, item.unitPrice, item.quantity)"></strong></h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content">
+
+                <div class="quantity-input">
+                    <ion-icon class="icon-btn" *ngIf="item.quantity > 1" slot="start" name="remove"
+                        (click)="updateItem(item, item.unitPrice, item.quantity-1)"></ion-icon>
+                    <ion-icon class="icon-btn" *ngIf="item.quantity === 1" slot="start" name="trash-outline"
+                        color="dark" (click)="removeItem(item)"></ion-icon>
+                    <input class="input-quantity" type="number" [(ngModel)]="item.quantity" min="1" step="1"
+                        (input)="updateItem(item, item.unitPrice, item.quantity)">
+                    <ion-icon class="icon-btn" slot="start" name="add"
+                        (click)="updateItem(item, item.unitPrice, item.quantity+1)"></ion-icon>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="total-section">
+        <div class="amount">
+            <div>
+                <p>Subtotal</p>
+                <p>Descuento</p>
+                <br>
+                <h3>Total</h3>
+            </div>
+            <div class="total-info">
+                <p>${{this.subTotal}}</p>
+                <div class="input-discount">
+                    <input [(ngModel)]="discountAmount" placeholder="0" (input)="getTotal()" type="number" max="100" min="0">
+                    <p>%</p>
+                </div>
+                <br>
+                <h3>${{totalAmount}}</h3>
+            </div>
+        </div>
+
+        <div class="form">
+            <ion-label>Método de pago:</ion-label>
+            <ion-list>
+                <ion-item>
+                    <ion-select [(ngModel)]="method" value="cash" interface="popover" placeholder="Selecciona un ">
+                        <ion-select-option value="cash" selectd>Efectivo</ion-select-option>
+                        <ion-select-option value="nequi">Nequi</ion-select-option>
+                        <ion-select-option value="credit">Credito</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+
+        </div>
+
+        <div class="btn-section">
+            <button class="main-btn" style="width: 120px;" (click)="registerInvoice()">Cobrar
+                ${{totalAmount}}</button>
+        </div>
+
+    </div>
+
+    <ion-modal #modal trigger="open-modal" [isOpen]="isOpenModal" [initialBreakpoint]="0.50"
+        [breakpoints]="[0.25, 0.5, 0.75, 0.90]" [backdropDismiss]="false">
+        <ng-template>
+            <ion-content class="ion-padding">
+
+                <ion-label style="color: rgb(187, 111, 111); padding-bottom: 10px;"
+                    (click)="modalIsOpen(false)">Cerrar
+                </ion-label>
+
+                <ion-searchbar placeholder="Buscar Producto..." [(ngModel)]="searchTerm" (input)="filterProducts()"
+                    (click)="modal.setCurrentBreakpoint(0.90)">
+                </ion-searchbar>
+
+                <ion-list>
+                    <div class="product-list" *ngFor="let product of productList">
+                        <div class="item-info">
+                            
+                            <div class="main-item-info">
+                                <h4>{{product.name}}</h4>
+                                <p *ngIf="product.stock > 0">Stock: {{product.stock}}</p>
+                                <p *ngIf="product.stock < 1"> Sin Existencias</p>
+                            </div>
+
+                            <div class="complement-item-info">
+                                <ion-select placeholder="Presentación" [(ngModel)]="selectedPresentation[product._id]">
+                                    <ion-select-option *ngFor="let presentation of product.presentations"
+                                        [value]="presentation">{{presentation.type}} - $
+                                        {{presentation.price}}</ion-select-option>
+                                </ion-select>
+                            </div>
+
+                            <div class="btn-section">
+                                <button class="add-btn" (click)="addItem(product, selectedPresentation[product._id])">Agregar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </ion-list>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+    <ion-toast [isOpen]="isToastOpen" [message]="toastMsg" [color]="toastColor" [duration]="800"
+        (didDismiss)="setOpen(false)"></ion-toast>
+
+</ion-content>
