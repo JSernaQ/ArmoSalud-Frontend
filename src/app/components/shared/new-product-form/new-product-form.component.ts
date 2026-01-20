@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 import { ModalController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { ApiServicesService } from 'src/app/services/api-services.service';
+import { InventoryServiceService } from 'src/app/services/inventory-service.service';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class NewProductFormComponent implements OnInit {
   tabExists = this.presentationState.tab.enable;
   cajExists = this.presentationState.caj.enable;
   
-  constructor(private modalCtrl: ModalController, private api: ApiServicesService, private fb: FormBuilder) { }
+  constructor(private modalCtrl: ModalController, private api: ApiServicesService, private fb: FormBuilder, private inventoryServices: InventoryServiceService) { }
   
   ngOnInit() {
     this.getOwners();
@@ -135,6 +136,7 @@ export class NewProductFormComponent implements OnInit {
       this.api.updateProduct(token, { ...body, productId: this.productData._id }).subscribe({
         next: (response: any) => {
           this.modalCtrl.dismiss({ body, ok: true }, 'confirm');
+          this.inventoryServices.updateProductList();
         },
         error: (error: any) => {
           this.msgToast = error?.error.msg || 'Error desconocido';
@@ -146,6 +148,7 @@ export class NewProductFormComponent implements OnInit {
       this.api.createNewProduct(token, body).subscribe({
         next: (response: any) => {
           this.modalCtrl.dismiss({ body, ok: true }, 'confirm');
+          this.inventoryServices.updateProductList();
         },
         error: (error: any) => {
           this.msgToast = error?.error.msg || 'Error desconocido';

@@ -1,10 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
 import { ModalController, RefresherCustomEvent } from '@ionic/angular';
 import { NewProductFormComponent } from 'src/app/components/shared/new-product-form/new-product-form.component';
+import { PercentPipe } from '@angular/common';
+import { InventoryServiceService } from 'src/app/services/inventory-service.service';
 
 @Component({
   selector: 'app-products-list',
@@ -16,19 +18,26 @@ export class ProductsListComponent implements OnInit {
 
   @Output() listUpdated = new EventEmitter<any[]>();
 
+  private destroy$ = new Subject<void>();
+
   productList: any = [];
   originalProductList: any = [];
   isToastOpen = false;
   msg: string = ''
   msgColor: string = 'danger'
 
-  constructor(private api: ApiService, private router: Router, private modalCtrl: ModalController) { }
+  constructor(private api: ApiService, private router: Router, private modalCtrl: ModalController, private inventoryServices: InventoryServiceService) { }
 
   ngOnInit() {
-    this.setOpen(false);
-    this.msg = ''
-    this.msgColor = 'danger'
-    this.getAllProducts()
+    this.getAllProducts();
+    this.inventoryServices.update$.subscribe(() => {
+      this.getAllProducts();
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   async getToken() {
@@ -39,11 +48,18 @@ export class ProductsListComponent implements OnInit {
   async getAllProducts() {
 
     try {
-      const token = await this.getToken();
-      if (!token) {
-        await Preferences.clear();
-        this.router.navigate(['/login']);
+
+      const { value } = await Preferences.get({ key: 'productList' });
+
+      if (value) {
+        const response = JSON.parse(value!);
+        this.productList = [...response];
+        this.originalProductList = [...response];
+        this.listUpdated.emit(this.productList);
+        return;
       }
+
+      const token = await this.getToken();
 
       const response = await firstValueFrom(this.api.getAllProducts(token));
 
@@ -103,7 +119,6 @@ export class ProductsListComponent implements OnInit {
       this.msgColor = 'success';
       this.msg = 'Producto actualizado Correctamente';
       this.setOpen(true);
-      this.getAllProducts();
     }
 
   }

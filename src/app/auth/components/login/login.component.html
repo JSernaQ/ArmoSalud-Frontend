@@ -1,29 +1,37 @@
 <div class="login-container">
-  <img src="assets/logo.webp" alt="Logo" class="logo" />
+  <div class="logo-container">
+    <img src="assets/logo.webp" alt="Logo" class="logo" />
+  </div>
 
   <div class="login-background">
 
-    <h1 class="login-title">
-      <strong>
-        Iniciar Sesión
-      </strong>
-    </h1>
+    <div class="login-title">
+      <h1>
+        <strong>
+          Bienvenido
+        </strong>
+      </h1>
+      <h5>Gestión de Inventario y Facturación</h5>
+    </div>
 
-    <form (ngSubmit)="signIn()">
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input class="login-input" required [(ngModel)]="username" name="username" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input required [(ngModel)]="password" name="password" type="password"></ion-input>
-      </ion-item>
-      <ion-button block color="primary" type="submit">
-        Login
+    <div class="form">
+
+      <h5>Usuario:</h5>
+      <input type="text" class="user-input" required [(ngModel)]="username" name="username" placeholder="Ingrese su usuario">
+      <h5>Contraseña:</h5>
+      <input type="password" class="user-input" required [(ngModel)]="password" name="password" placeholder="Ingrese su contraseña">
+      <ion-button block color="primary" type="submit" (click)="signIn()" id="loading" [disabled]="disable">
+        INGRESAR
       </ion-button>
-    </form>
+    </div>
 
   </div>
 
+  <div class="footer">
+    <h6>Esta es una aplicación privada para el personal autorizado de Drogueria Armonía y Salud.</h6>
+  </div>
+
+  <ion-toast [isOpen]="isAlertOpen" [color]="colorAlert" [message]="msgAlert" [duration]="2000"
+    (didDismiss)="setOpenAlert(false)"></ion-toast>
 
 </div>

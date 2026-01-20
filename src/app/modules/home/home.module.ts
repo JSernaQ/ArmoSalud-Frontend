@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { MainCardsComponent } from './components/main-cards/main-cards.component';
 import { RecentActivityComponent } from './components/recent-activity/recent-activity.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ShortcutComponent } from './components/shortcut/shortcut.component';
 
 
 
@@ -12,8 +12,8 @@ import { NotificationComponent } from './components/notification/notification.co
   declarations: [
     MainCardsComponent,
     RecentActivityComponent,
-    WelcomeComponent,
-    NotificationComponent
+    NotificationComponent,
+    ShortcutComponent
   ],
   imports: [
     CommonModule,
@@ -22,8 +22,8 @@ import { NotificationComponent } from './components/notification/notification.co
   exports: [
     MainCardsComponent,
     RecentActivityComponent,
-    WelcomeComponent,
-    NotificationComponent
+    NotificationComponent,
+    ShortcutComponent
   ]
 })
 export class HomeModule { }

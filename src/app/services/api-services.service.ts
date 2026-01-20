@@ -30,5 +30,8 @@ export class ApiServicesService {
     return this.http.post(`${environment.api_url}/invoice/create`, body, {headers: {authorization: `${token}`}})
   }
 
+  getInvoicesByDay(token: any, date: string): Observable<any> {
+    return this.http.get(`${environment.api_url}/invoice/by-day/${date}`, {headers: {authorization: `${token}`}})
+  }
 
 }

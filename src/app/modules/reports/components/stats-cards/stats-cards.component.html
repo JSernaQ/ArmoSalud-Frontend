@@ -1,24 +1,85 @@
 <div class="container">
-  <div class="card">
-    <div class="header">
-      <ion-icon class="icon" name="trending-up-outline"></ion-icon>
-      <div class="title">Entradas</div>
-    </div>
-    <div class="content">
-      <h3>$125.500,0</h3>
-      <h6>Hoy</h6>
-    </div>
-  </div>
+  <ion-segment [(ngModel)]="segment" scrollable color="secondary">
 
-  <div class="card">
-    <div class="header">
-      <ion-icon class="icon" name="trending-down-outline"></ion-icon>
-      <div class="title">Salidas</div>
-    </div>
-    <div class="content">
-      <h3>$50.000,0</h3>
-      <h6>Hoy</h6>
-    </div>
+    <ion-segment-button value="daily">
+      <h4>Diario</h4>
+    </ion-segment-button>
+    <ion-segment-button value="weekly" [disabled]="true">
+      <h4>Semanal</h4>
+    </ion-segment-button>
+    <ion-segment-button value="monthly" [disabled]="true">
+      <h4>Mensual</h4>
+    </ion-segment-button>
+
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+
+    <ng-container *ngSwitchCase="'daily'">
+      <div class="date-input">
+        <h3>Periodo:</h3>
+        <input type="date" [(ngModel)]="todayDate" min="2026-01-18" (input)="chargeDaylySales()" />
+      </div>
+
+      <div class="main-card">
+        <div class="card-info">
+          <h3>Ventas Totales</h3>
+          <ion-icon name="cash-outline" color="secondary" size="large"></ion-icon>
+        </div>
+        <h1>$ {{totalDailySales}},00</h1>
+        <div class="secondary-card-info">
+          <ion-icon name="trending-up-outline" color="success" size="large"></ion-icon>
+          <!-- <ion-icon name="trending-down-outline" color="danger"></ion-icon> -->
+
+          <h4>+ 15.2% vs prev.</h4>
+        </div>
+      </div>
+
+      <div class="complementary-cards">
+        <div class="card">
+          <div class="card-info">
+            <h3>Facturas</h3>
+            <ion-icon name="document-outline" color="secondary" size="large"></ion-icon>
+          </div>
+          <h1>{{totalDailyInvoices}}</h1>
+          <div class="secondary-card-info">
+            <ion-icon name="trending-up-outline" color="success" size="large"></ion-icon>
+            <!-- <ion-icon name="trending-down-outline" color="danger"></ion-icon> -->
+
+            <h4>+10 vs prev.</h4>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-info">
+            <h3>Agotados</h3>
+            <ion-icon name="alert-circle-outline" color="danger" size="large"></ion-icon>
+          </div>
+          <h1>5</h1>
+          <div class="secondary-card-info">
+            <ion-icon name="trending-up-outline" color="success" size="large"></ion-icon>
+            <!-- <ion-icon name="trending-down-outline" color="danger"></ion-icon> -->
+
+            <h4>+10 vs prev.</h4>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'weekly'">
+      <div class="date-input">
+        <h3>Periodo:</h3>
+        <input type="week" [(ngModel)]="week" min="2026-W03" />
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'monthly'">
+      <div class="date-input">
+        <h3>Periodo:</h3>
+        <input type="month" [(ngModel)]="month" min="2026-01" />
+      </div>
+    </ng-container>
+
   </div>
 
 </div>

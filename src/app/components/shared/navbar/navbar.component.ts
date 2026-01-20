@@ -20,8 +20,6 @@ export class NavbarComponent  implements OnInit {
   async getUser() {
     const { value } = await Preferences.get({ key: 'user' })
     this.user = value ? JSON.parse(value) : false;
-    console.log(this.user);
-    
   }
 
 }

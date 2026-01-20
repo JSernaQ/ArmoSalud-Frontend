@@ -1,43 +1,77 @@
 .login-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
     width: 100%;
-    padding: 20px;
+    padding: 50px 20px;
 }
 
-.logo {
-    max-width: 400px;
+.logo-container {
+    flex: 1;
+    display: flex;
+    align-items: start;
+    padding: 0px 20px;
     margin-bottom: 20px;
 }
 
 .login-background {
+    flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 0px 10px;
     width: 100%;
     max-width: 400px;
     border-radius: 15px;
-    background: #fff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.login-background h5 {
+    text-align: start;
 }
 
 .login-title {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
     text-align: center;
-    color: #333;
+    gap: 10px;
 }
 
-form {
+.user-input {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 12px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.user-input:focus {
+    outline: none;
+}
+
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.form h5 {
+    width: 100%;
+}
+
+.footer {
+    flex: 1;
+    display: flex;
+    align-items: end;
+    text-align: center;
 }
 
 ion-item {
@@ -47,6 +81,11 @@ ion-item {
 
 ion-button {
     margin-top: 20px;
-    width: 100%;
+    width: 50%;
     max-width: 300px;
+}
+
+h1 {
+    font-family: 'Geist';
+    font-size: 30px;
 }

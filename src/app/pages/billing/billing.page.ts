@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 import { AlertController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { ApiServicesService } from 'src/app/services/api-services.service';
+import { InventoryServiceService } from 'src/app/services/inventory-service.service';
 
 interface itemBilling {
   productId: string;
@@ -43,13 +44,14 @@ export class BillingPage implements OnInit {
   selectedPresentation: any = {};
 
 
-  constructor(private api: ApiServicesService, private router: Router, private alertController: AlertController) { }
+  constructor(private api: ApiServicesService, private router: Router, private alertController: AlertController, private inventoryServices: InventoryServiceService) { }
 
   ngOnInit() {
-    
+
     this.getProductList();
     this.chargeCacheItems();
     this.getTotal();
+
   }
 
   async chargeCacheItems() {
@@ -84,15 +86,15 @@ export class BillingPage implements OnInit {
 
     if (await this.presentAlert('Confirmar', '¿Está seguro de la información de la factura?') === 'cancel') {
       return;
-    }    
+    }
 
-    const {value} = await Preferences.get({ key:'user'});
+    const { value } = await Preferences.get({ key: 'user' });
 
     const token = await this.getToken();
     const sellerId = JSON.parse(value!)._id;
 
     try {
-      
+
       const response: any = await firstValueFrom(this.api.createNewInvoice(token, {
         items: this.itemList,
         seller: sellerId,
@@ -107,13 +109,19 @@ export class BillingPage implements OnInit {
         this.toastMsg = 'Factura creada con éxito';
         this.setOpen(true);
         this.itemList = [];
-        await Preferences.remove({ key: 'billing_items'});
+        await Preferences.remove({ key: 'billing_items' });
       }
-      
+
+      this.getTotal()
+
+      this.inventoryServices.updateDailyInvoices();
+      this.inventoryServices.updateProductList();
+
     } catch (error: any) {
       this.toastColor = 'danger';
       this.toastMsg = error.error.msg || 'Error al crear la factura';
       this.setOpen(true);
+
     }
   }
 
@@ -134,7 +142,7 @@ export class BillingPage implements OnInit {
     await Preferences.set({ key: 'billing_items', value: JSON.stringify(this.itemList) });
     this.getTotal();
   };
-  
+
   async updateItem(item: itemBilling, price: number, quantity: number) {
     const index = this.itemList.indexOf(item);
     if (index !== -1) {
@@ -145,22 +153,22 @@ export class BillingPage implements OnInit {
     await Preferences.set({ key: 'billing_items', value: JSON.stringify(this.itemList) });
     this.getTotal();
   };
-  
-  async removeAllItems() { 
+
+  async removeAllItems() {
     let condition = await this.presentAlert('Eliminar todos los ítems', '¿Está seguro de eliminar todos los ítems de la factura?');
 
     if (condition === 'cancel') { return; }
-    
+
     this.itemList = [];
     await Preferences.remove({ key: 'billing_items' });
     this.getTotal();
   }
-  
+
   async removeItem(item: itemBilling) {
     const index = this.itemList.indexOf(item);
     if (index !== -1) {
       let condition = await this.presentAlert('Eliminar ítem', '¿Está seguro de eliminar este ítem de la factura?');
-    
+
       if (condition === 'cancel') { return; }
       this.itemList.splice(index, 1);
     }
@@ -178,7 +186,7 @@ export class BillingPage implements OnInit {
     }
 
     if (this.discountAmount && this.discountAmount > 0 && this.discountAmount <= 100) {
-      this.totalAmount = this.subTotal - (this.subTotal/100*this.discountAmount);
+      this.totalAmount = this.subTotal - (this.subTotal / 100 * this.discountAmount);
       return;
     }
 
@@ -191,12 +199,19 @@ export class BillingPage implements OnInit {
   }
 
   async getProductList() {
+
     try {
-      const token = await this.getToken();
-      if (!token) {
-        await Preferences.clear();
-        this.router.navigate(['/login']);
+
+      const { value } = await Preferences.get({ key: 'productList' });
+
+      if (value) {
+        const response = JSON.parse(value!);
+        this.productList = [...response];
+        this.originalProductList = [...response];
+        return;
       }
+
+      const token = await this.getToken();
 
       const response = await firstValueFrom(this.api.getAllProducts(token));
 
@@ -259,7 +274,7 @@ export class BillingPage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     return role
-   }
+  }
 
   setOpen(open: boolean) {
     this.isToastOpen = open;

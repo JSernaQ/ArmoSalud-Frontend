@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-user',
@@ -8,13 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPage implements OnInit {
 
+  name!: string;
+
   constructor() { }
 
   ngOnInit() {
+    this.chargeUserInfo();
   }
 
-  hola() {
-    console.log('Hola');
+  async chargeUserInfo() {
+    const { value } = await Preferences.get({ key: 'user' });
+    const user = JSON.parse(value!);
+    this.name = user.name;
   }
-
 }

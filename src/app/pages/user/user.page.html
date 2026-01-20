@@ -2,12 +2,12 @@
 
   <div class="user-info">
     <img src="./assets/icon/user.svg" alt="User Image">
-    <h4>Juan Serna</h4>
+    <h4>{{name}}</h4>
     <h5>Gerente de Farmacia</h5>
   </div>
 
   <div class="button-section">
-    <div (click)="hola()" class="button">
+    <div (click)="chargeUserInfo()" class="button">
       <div class="icon-button">
         <img src="./assets/icon/edit.svg" alt="Edit Icon">
       </div>
@@ -24,7 +24,7 @@
       </div>
     </div>
     
-    <div (click)="hola()" class="button">
+    <div (click)="chargeUserInfo()" class="button">
       <div class="icon-button">
         <img src="./assets/icon/edit.svg" alt="Edit Icon">
       </div>
@@ -43,7 +43,7 @@
   </div>
   
   <div class="button-section">
-    <div (click)="hola()" class="button">
+    <div (click)="chargeUserInfo()" class="button">
       <div class="icon-button">
         <img src="./assets/icon/edit.svg" alt="Edit Icon">
       </div>

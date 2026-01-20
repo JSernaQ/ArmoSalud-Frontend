@@ -1,7 +1,7 @@
 .main-container {
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 20px;
+    padding-top: 10px;
     margin-top: 10px;
     margin-bottom: 30px;
     display: flex;
@@ -37,18 +37,15 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    line-height: 0;
     flex: 2;
 }
 
 .content-card p:nth-child(1) {
     font-size: 24px;
     font-weight: 700;
-    margin-top: 20px;
 }
 
 .content-card p:nth-child(2) {
     font-weight: 600;
-    margin-top: 0px;
     color: rgb(99, 99, 99);
 }

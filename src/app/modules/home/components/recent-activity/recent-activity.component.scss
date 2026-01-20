@@ -7,6 +7,7 @@
 .title {
     font-size: 18px;
     font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .history {
@@ -19,10 +20,14 @@
     flex-direction: row;
     justify-content: space-between;
     flex: 1;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-radius: 15px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     padding: 10px 20px;
+}
+
+.first-info {
+    flex: 2;
 }
 
 .first-info .title-card {
@@ -32,6 +37,7 @@
 .second-info {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .second-info p {
